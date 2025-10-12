@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap");
+
+@import "tailwindcss";
+@plugin "daisyui";
+
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+
+  --color-primary: #004b8d;
+  --color-secondary: #68b047;
+  --color-accent: #a0d468;
+  --color-neutral: #2e2e2e;
+  --color-base-100: #fafaf5;
+}
+
+@plugin "daisyui/theme" {
+  name: "dark";
+
+  --color-primary: #68b0f5;
+  --color-secondary: #3ecf8e;
+  --color-accent: #ffd479;
+  --color-neutral: #1f1f1f;
+  --color-base-100: #1f1f1f;
+}
+
+
+body {
+  font-family: "Lora", serif;
+}
