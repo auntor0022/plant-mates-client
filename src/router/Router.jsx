@@ -21,8 +21,8 @@ export const router = createBrowserRouter([
       {
         index: true,
         Component: HomeLayout,
-        loader: () => fetch("https://plant-mates-server.vercel.app/tips"),
-        hydrateFallbackElement: <Loader></Loader>,
+        // loader: () => fetch("https://plant-mates-server.vercel.app/tips"),
+        // hydrateFallbackElement: <Loader></Loader>,
       },
       {
         path: "/login",

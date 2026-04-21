@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FeaturesGardenCard from "./FeaturesGardenCard";
 
 const FeaturesGarden = () => {
   const [featureGarden, setFeatureGarden] = useState([]);
 
-  fetch("https://plant-mates-server.vercel.app/features-garden")
-    .then((res) => res.json())
-    .then((data) => setFeatureGarden(data));
+  useEffect(() => {
+    fetch("https://plant-mates-server.vercel.app/features-garden")
+      .then((res) => res.json())
+      .then((data) => setFeatureGarden(data));
+  }, []);
+
+  useEffect(() => {
+    document.title = "Plant Mates | features-garden";
+  }, []);
 
   return (
     <div className="container mx-auto">
@@ -15,8 +21,8 @@ const FeaturesGarden = () => {
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-10 px-5">
         {featureGarden.map((singleFeatureGarden) => (
-            <FeaturesGardenCard
-                key={singleFeatureGarden._id}
+          <FeaturesGardenCard
+            key={singleFeatureGarden._id}
             singleFeatureGarden={singleFeatureGarden}
           ></FeaturesGardenCard>
         ))}

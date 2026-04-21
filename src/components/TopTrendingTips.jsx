@@ -1,13 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TopTrendingTipsCard from "./TopTrendingTipsCard";
 import { FaFireAlt } from "react-icons/fa";
 
-const TopTrendingTips = ({ allTips }) => {
+const TopTrendingTips = ({ allTips = [] }) => {
   console.log(allTips);
-  const topTips = allTips
-    .filter((tip) => tip.availability === "Public")
-    .sort((a, b) => b.totalLike - a.totalLike)
-    .slice(0, 6);
+  const [tips, setTips] = useState([]);
+
+  // const tipsArray = Array.isArray(allTips) ? allTips : allTips?.data || []; // 👈 handle API object
+
+  useEffect(() => {
+    document.title = "Plant Mates | top-trending-tips";
+  }, []);
+
+  useEffect(() => {
+    fetch("https://plant-mates-server.vercel.app/tips")
+      .then((res) => res.json())
+      .then((data) => {
+        setTips(data);
+        console.log("Fetched tips:", data);
+      })
+      .catch((error) => {
+        console.error("Error fetching tips:", error);
+      });
+  }, []);
+
+  // const topTips = tipsArray
+  //   .filter((tip) => tip.availability === "Public")
+  //   .sort((a, b) => b.totalLike - a.totalLike)
+  //   .slice(0, 6);
 
   // console.log(topTips);
 
@@ -24,9 +44,13 @@ const TopTrendingTips = ({ allTips }) => {
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 px-5">
-        {topTips.map((tip) => (
-          <TopTrendingTipsCard key={tip._id} tip={tip}></TopTrendingTipsCard>
-        ))}
+        {tips
+          .filter((tip) => tip.availability === "Public")
+          .sort((a, b) => b.totalLike - a.totalLike)
+          .slice(0, 6)
+          .map((tip) => (
+            <TopTrendingTipsCard key={tip._id} tip={tip}></TopTrendingTipsCard>
+          ))}
       </div>
     </div>
   );
